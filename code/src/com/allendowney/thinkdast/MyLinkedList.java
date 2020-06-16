@@ -83,6 +83,9 @@ public class MyLinkedList<E> implements List<E> {
 	@Override
 	public void add(int index, E element) {
 		//TODO: FILL THIS IN!
+		Node node = getNode(index);
+		node.next = new Node(element, node.next);
+		size++;
 	}
 
 	@Override
@@ -143,7 +146,13 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public int indexOf(Object target) {
-		//TODO: FILL THIS IN!
+		Node node = head;
+		for (int i=0; i < size; i++) {
+			node = node.next;
+			if (equals(node.data, target)) {
+				return i;
+			}
+		}
 		return -1;
 	}
 
@@ -208,8 +217,15 @@ public class MyLinkedList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		//TODO: FILL THIS IN!
-		return null;
+		E removedData = get(index);
+		if (index == 0) {
+			head = head.next;
+		} else {
+			Node prevNode = getNode(index-1);
+			prevNode.next = prevNode.next.next;
+		}
+		size--;
+		return removedData;
 	}
 
 	@Override
@@ -245,13 +261,14 @@ public class MyLinkedList<E> implements List<E> {
 			throw new IndexOutOfBoundsException();
 		}
 		// TODO: classify this and improve it.
-		int i = 0;
+		Node node = this.head;
 		MyLinkedList<E> list = new MyLinkedList<E>();
-		for (Node node=head; node != null; node = node.next) {
-			if (i >= fromIndex && i <= toIndex) {
-				list.add(node.data);
-			}
-			i++;
+		for (int i=0; i < fromIndex; ++i) {
+			node = node.next;
+		}
+		for (int i=0; i < toIndex - fromIndex; i++) {
+			list.add(node.data);
+			node = node.next;
 		}
 		return list;
 	}
