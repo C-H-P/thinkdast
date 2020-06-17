@@ -77,11 +77,11 @@ public class MyArrayListTest {
 		} catch (IndexOutOfBoundsException e) {} // good
 
 		mylist.add(0, 6);
-		//System.out.println(Arrays.toString(mal.toArray()));
+		// System.out.println(Arrays.toString(mal.toArray()));
 		assertThat(mylist.get(0), is(6));
 
 		mylist.add(5, 7);
-		//System.out.println(Arrays.toString(mal.toArray()));
+		// System.out.println(Arrays.toString(mal.toArray()));
 		assertThat(mylist.get(5), is(new Integer(7)));
 	}
 
